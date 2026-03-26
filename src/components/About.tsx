@@ -8,11 +8,11 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const skills = [
-    { name: 'React / Next.js', level: 90 },
-    { name: 'TypeScript / JS', level: 85 },
-    { name: 'Tailwind CSS', level: 95 },
-    { name: 'Node.js / Express', level: 75 },
-    { name: 'UI / UX Design', level: 80 }
+    { name: 'Node.js & NestJS', level: 90 },
+    { name: 'TypeScript & JavaScript', level: 85 },
+    { name: 'Bases de Datos (SQL, Redis)', level: 85 },
+    { name: 'PHP, Laravel & CakePHP', level: 80 },
+    { name: 'APIs & Microservicios', level: 85 }
   ];
 
   return (
@@ -59,8 +59,8 @@ const About = () => {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -bottom-6 -right-6 glass-panel p-4 rounded-xl z-20 shadow-xl"
               >
-                <div className="text-primary-600 dark:text-primary-400 font-bold text-xl">5+ Years</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Experience</div>
+                <div className="text-primary-600 dark:text-primary-400 font-bold text-xl">5+ Años</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Experiencia</div>
               </motion.div>
             </div>
           </motion.div>

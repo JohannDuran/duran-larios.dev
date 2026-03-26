@@ -1,17 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { FiMonitor, FiSmartphone, FiLayout, FiDatabase, FiCloud, FiPenTool } from 'react-icons/fi';
+import { FiMonitor, FiLayout, FiDatabase, FiPenTool } from 'react-icons/fi';
 
 const servicesList = [
   {
     icon: FiMonitor,
     title: 'Web Development',
     description: 'High-performance, responsive websites built with modern frameworks like React and Next.js.'
-  },
-  {
-    icon: FiSmartphone,
-    title: 'Mobile Apps',
-    description: 'Cross-platform mobile applications using React Native for iOS and Android.'
   },
   {
     icon: FiLayout,
@@ -22,11 +17,6 @@ const servicesList = [
     icon: FiDatabase,
     title: 'Backend Systems',
     description: 'Robust APIs and database architectures using Node.js, Express, and PostgreSQL.'
-  },
-  {
-    icon: FiCloud,
-    title: 'Cloud Integration',
-    description: 'Deploying and scaling applications on AWS, Vercel, and modern cloud infrastructure.'
   },
   {
     icon: FiPenTool,

@@ -25,8 +25,8 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Alex.dev | Portfolio</title>
-        <meta name="description" content="Professional portfolio of Alex, a full-stack developer specializing in modern web technologies." />
+        <title>Duran.dev | Portfolio</title>
+        <meta name="description" content="Professional portfolio of Duran, a full-stack developer specializing in modern web technologies." />
       </Helmet>
       
       {loading && <SplashScreen onComplete={() => setLoading(false)} />}

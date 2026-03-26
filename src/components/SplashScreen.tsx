@@ -44,7 +44,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
               transition={{ duration: 0.5 }}
               className="w-24 h-24 bg-gradient-primary rounded-3xl rotate-12 flex items-center justify-center shadow-2xl shadow-primary-500/40 relative z-10"
             >
-              <span className="text-white text-4xl font-black -rotate-12">A.</span>
+              <span className="text-white text-2xl font-black -rotate-12 tracking-tight">JD.dev</span>
             </motion.div>
           </div>
           

@@ -9,7 +9,7 @@ const testimonialsData = [
     id: 1,
     name: 'Sarah Johnson',
     role: 'CEO at TechStart',
-    text: 'Alex delivered our project ahead of schedule and exceeded all our expectations. The attention to detail and code quality is outstanding.',
+    text: 'Duran delivered our project ahead of schedule and exceeded all our expectations. The attention to detail and code quality is outstanding.',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150'
   },
   {
@@ -23,7 +23,7 @@ const testimonialsData = [
     id: 3,
     name: 'Emily Davis',
     role: 'Product Manager',
-    text: 'Working with Alex was a breeze. They communication was clear, and they brought innovative solutions to our complex problems.',
+    text: 'Working with Duran was a breeze. They communication was clear, and they brought innovative solutions to our complex problems.',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150'
   }
 ];

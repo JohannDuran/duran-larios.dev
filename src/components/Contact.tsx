@@ -56,8 +56,8 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Email</h4>
-                <a href="mailto:hello@alex.dev" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
-                  hello@alex.dev
+                <a href="mailto:johann.duran@outlook.com" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  johann.duran@outlook.com
                 </a>
               </div>
             </div>
@@ -69,7 +69,7 @@ const Contact = () => {
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Location</h4>
                 <p className="text-gray-600 dark:text-gray-400">
-                  San Francisco, CA<br/>Available Remote
+                  Mérida, México<br/>Disponible Remoto
                 </p>
               </div>
             </div>
@@ -80,8 +80,8 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Phone</h4>
-                <a href="tel:+1234567890" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
-                  +1 (234) 567-890
+                <a href="tel:+529991998949" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  +52 999 199 8949
                 </a>
               </div>
             </div>

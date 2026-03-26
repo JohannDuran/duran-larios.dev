@@ -10,10 +10,14 @@
   },
   "hero": {
     "greeting": "Hola, soy",
-    "name": "Alex Developer",
-    "roles": ["Desarrollador Frontend", "Entusiasta UI/UX", "Desarrollador Full Stack"],
+    "name": "Johann Durán Developer",
+    "roles": ["Desarrollador Web", "Entusiasta Frontend","Desarrollador Backend", "Desarrollador Full Stack"],
     "viewWork": "Ver mi Trabajo",
-    "downloadCV": "Descargar CV"
+    "downloadCV": "Descargar CV",
+    "confirmDownloadTitle": "Descargar CV",
+    "confirmDownloadDesc": "¿Estás seguro que deseas descargar mi currículum en formato PDF?",
+    "cancel": "Cancelar",
+    "confirm": "Descargar"
   },
   "about": {
     "title": "Sobre Mí",
@@ -36,5 +40,50 @@
   },
   "footer": {
     "rights": "Todos los derechos reservados."
+  },
+  "experienceSection": {
+    "title": "Experiencia y Educación",
+    "items": [
+      {
+        "id": 1,
+        "type": "work",
+        "role": "Desarrollador Backend",
+        "company": "Macropay – Mérida, México",
+        "period": "Oct 2023 – Presente",
+        "description": "• Altán MVNO (Chip Macropay): Optimicé el rendimiento del sistema mediante una capa de caché con Amazon ElastiCache (Redis). Diseñé un flujo de validación que prioriza consultas en Redis antes de realizar peticiones externas a Altán, reduciendo la latencia y la carga en las APIs del proveedor.\n• Gestión de Proveedores (Jobs): Desarrollé procesos programados y middlewares en NestJS vía Docker en AWS para automatizar operaciones de bloqueo, desbloqueo y enrolamiento con 3 proveedores. Implementé sincronización de datos en tiempo real con SQL Server.\n• Integración Belvo: Integré la API de Belvo como agregador para automatizar la consulta de información de entidades oficiales. Desarrollé flujos de extracción y procesamiento de datos institucionales para la evaluación de riesgos financieros y validación de perfiles.\n• Motor de Cancelación de Financiamiento: Refactoricé una API y un Cronjob para la cancelación automatizada de créditos por abandono de usuario. Implementé Prisma ORM para optimizar el acceso a datos, mejorando la seguridad de tipos y la eficiencia de la base de datos.\n• Portal de Viajes | Macropay: Desarrollé la integración entre el portal y SAP mediante servicios OData. Diseñé una capa de adaptación para sincronizar procesos de negocio críticos, permitiendo la interoperabilidad de datos en tiempo real con el ecosistema ERP."
+      },
+      {
+        "id": 2,
+        "type": "work",
+        "role": "Desarrollador FullStack",
+        "company": "Grupo Colorines – Mérida, México",
+        "period": "Jul 2022 – Oct 2023",
+        "description": "• Evolución y Desarrollo de CRM: Ejecuté actualizaciones visuales y funcionales en módulos de CRM existentes (CakePHP), mejorando la navegación y la experiencia de usuario (UX). Refactoricé componentes eliminando funciones obsoletas para optimizar procesos internos.\n• Lógica de Base de Datos: Diseñé e implementé Procedimientos Almacenados (SP) y Vistas en MySQL para centralizar lógica de consultas complejas, asegurando la integridad de los datos y optimizando los tiempos de respuesta del CRM.\n• Optimización de Landing Pages (Angular): Gestioné mejoras continuas en múltiples landing pages desarrolladas en Angular para proyectos inmobiliarios. Implementé secciones basadas en componentes y optimicé el rendimiento de carga para maximizar la captación de prospectos."
+      },
+      {
+        "id": 3,
+        "type": "work",
+        "role": "Desarrollador de Software",
+        "company": "OneSmart Solutions – Mérida, México",
+        "period": "Ago 2021 – Jul 2022",
+        "description": "• Pasarelas de Pago: Implementé soluciones de procesamiento de tarjetas de crédito mediante la integración de la API de Rapipago y la conexión con terminales Getnet para sistemas de cara al cliente.\n• Ovalo24: Desarrollé una solución de software personalizada con sincronización bidireccional en tiempo real vía APIs, garantizando un flujo de datos fluido entre el sistema local y el portal web de la empresa.\n• Conectividad Híbrida (Web/Escritorio): Desarrollé conexiones multiplataforma entre aplicaciones web y de escritorio usando JavaScript y PHP, gestionando el entorno de desarrollo Velneo para soluciones de escritorio."
+      },
+      {
+        "id": 4,
+        "type": "work",
+        "role": "Desarrollador Backend",
+        "company": "Compufax – Mérida, México",
+        "period": "Ene 2021 – Ago 2021",
+        "description": "• Desarrollo de APIs y Conectividad: Desarrollé nuevas funcionalidades y optimicé APIs existentes usando Laravel y Node.js para gestionar conexiones críticas de la empresa y asegurar la interoperabilidad entre sistemas.\n• Gestión de E-commerce y CMS: Realicé el mantenimiento evolutivo y la actualización de aplicaciones web usando PHP Laravel y MySQL. Modifique entornos PrestaShop, implementando lógica de negocio compleja y asegurando código de alta calidad y mantenible."
+      },
+      {
+        "id": 5,
+        "type": "education",
+        "role": "Ingeniería en Sistemas Computacionales",
+        "company": "Instituto Tecnológico de Mérida",
+        "period": "Educación Superior",
+        "description": "Formación finalizada en Ingeniería en Sistemas Computacionales."
+      }
+    ]
   }
 }

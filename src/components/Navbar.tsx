@@ -37,7 +37,7 @@ const Navbar = () => {
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <a href="#" className="font-bold text-2xl text-gradient tracking-tight">
-          Alex<span className="text-gray-900 dark:text-white">.dev</span>
+          Duran<span className="text-gray-900 dark:text-white">.dev</span>
         </a>
 
         {/* Desktop Nav */}

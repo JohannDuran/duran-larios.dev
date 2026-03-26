@@ -10,10 +10,14 @@
   },
   "hero": {
     "greeting": "Hi, I am",
-    "name": "Alex Developer",
-    "roles": ["Frontend Developer", "UI/UX Enthusiast", "Full Stack Developer"],
+    "name": "Johann Durán Developer",
+    "roles": ["Web Developer", "Frontend Enthusiast", "Backend Developer", "Full Stack Developer"],
     "viewWork": "View My Work",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "confirmDownloadTitle": "Download CV",
+    "confirmDownloadDesc": "Are you sure you want to download my resume in PDF format?",
+    "cancel": "Cancel",
+    "confirm": "Download"
   },
   "about": {
     "title": "About Me",
@@ -36,5 +40,50 @@
   },
   "footer": {
     "rights": "All rights reserved."
+  },
+  "experienceSection": {
+    "title": "Experience & Education",
+    "items": [
+      {
+        "id": 1,
+        "type": "work",
+        "role": "Backend Developer",
+        "company": "Macropay – Mérida, México",
+        "period": "Oct 2023 – Present",
+        "description": "• Altán MVNO (Macropay SIM): Optimized system performance via a caching layer with Amazon ElastiCache (Redis). Designed a validation flow prioritizing Redis queries before external requests to Altán, reducing latency and load on provider APIs.\n• Provider Management (Jobs): Developed scheduled processes and middlewares in NestJS via Docker on AWS to automate lock, unlock, and enrollment operations with 3 providers. Implemented real-time data synchronization with SQL Server.\n• Belvo Integration: Integrated Belvo API as an aggregator to automate fetching official entity information. Developed institutional data extraction and processing flows for financial risk evaluation and profile validation.\n• Financing Cancellation Engine: Refactored an API and Cronjob for automated cancellation of abandoned user credits. Implemented Prisma ORM to optimize data access, improving type safety and DB efficiency.\n• Travel Portal | Macropay: Developed integration between the portal and SAP using OData services. Designed an adaptation layer to synchronize critical business processes, allowing real-time data interoperability with the ERP ecosystem."
+      },
+      {
+        "id": 2,
+        "type": "work",
+        "role": "Full Stack Developer",
+        "company": "Grupo Colorines – Mérida, México",
+        "period": "Jul 2022 – Oct 2023",
+        "description": "• CRM Evolution and Development: Executed visual and functional updates on existing CRM modules (CakePHP), improving navigation and UX. Refactored components by eliminating obsolete functions to optimize internal processes.\n• Database Logic: Designed and implemented Stored Procedures (SP) and Views in MySQL to centralize complex query logic, ensuring data integrity and optimizing CRM response times.\n• Landing Pages Optimization (Angular): Managed continuous improvements on multiple Angular-based landing pages for real estate projects. Implemented component-based sections and optimized load performance to maximize lead generation."
+      },
+      {
+        "id": 3,
+        "type": "work",
+        "role": "Software Developer",
+        "company": "OneSmart Solutions – Mérida, México",
+        "period": "Aug 2021 – Jul 2022",
+        "description": "• Payment Gateways: Implemented credit card processing solutions by integrating Rapipago API and connecting Getnet terminals for customer-facing systems.\n• Ovalo24: Developed a custom software solution with real-time bidirectional synchronization via APIs, ensuring seamless data flow between the local system and the company's web portal.\n• Hybrid Connectivity (Web/Desktop): Developed cross-platform connections between web and desktop applications using JavaScript and PHP, managing the Velneo development environment for desktop solutions."
+      },
+      {
+        "id": 4,
+        "type": "work",
+        "role": "Backend Developer",
+        "company": "Compufax – Mérida, México",
+        "period": "Jan 2021 – Aug 2021",
+        "description": "• API Development and Connectivity: Developed new features and optimized existing APIs using Laravel and Node.js to manage critical company connections and ensure interoperability between systems.\n• E-commerce and CMS Management: Maintained and updated web applications using PHP Laravel and MySQL. Modified PrestaShop environments, implementing complex business logic and ensuring high-quality, maintainable code."
+      },
+      {
+        "id": 5,
+        "type": "education",
+        "role": "Computer Systems Engineering",
+        "company": "Instituto Tecnológico de Mérida",
+        "period": "Higher Education",
+        "description": "Completed studies in Computer Systems Engineering."
+      }
+    ]
   }
 }

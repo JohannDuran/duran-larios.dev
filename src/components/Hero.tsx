@@ -1,15 +1,25 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TypeAnimation } from 'react-type-animation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiDownload } from 'react-icons/fi';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
+  const [showDownloadConfirm, setShowDownloadConfirm] = useState(false);
 
   const roles = t('hero.roles', { returnObjects: true }) as string[];
 
   // Re-key TypeAnimation on language change to restart animation properly with new strings
   const typeSequence = roles.flatMap(role => [role, 2000]);
+
+  // Determine the correct CV file based on current language
+  const cvUrl = i18n.language?.startsWith('es') ? '/cv/ES-RESUME.pdf' : '/cv/EN-RESUME.pdf';
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowDownloadConfirm(true);
+  };
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -58,15 +68,6 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="max-w-2xl text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed"
-          >
-            {t('about.description')}
-          </motion.p>
-
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,9 +77,9 @@ const Hero = () => {
             <a href="#projects" className="px-8 py-4 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30 flex items-center justify-center gap-2">
               {t('hero.viewWork')} <FiArrowRight />
             </a>
-            <a href="#contact" className="px-8 py-4 rounded-full bg-white dark:bg-dark-surface border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-semibold transition-all hover:bg-gray-50 dark:hover:bg-dark-card transform hover:scale-105 flex items-center justify-center gap-2">
+            <button onClick={handleDownloadClick} className="px-8 py-4 rounded-full bg-white dark:bg-dark-surface border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-semibold transition-all hover:bg-gray-50 dark:hover:bg-dark-card transform hover:scale-105 flex items-center justify-center gap-2">
               {t('hero.downloadCV')} <FiDownload />
-            </a>
+            </button>
           </motion.div>
         </div>
       </div>
@@ -92,6 +93,50 @@ const Hero = () => {
       >
         <div className="w-1 h-12 bg-gradient-to-b from-primary-500 to-transparent rounded-full mb-2"></div>
       </motion.div>
+
+      {/* Download Confirm Modal */}
+      <AnimatePresence>
+        {showDownloadConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-gray-900/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-3xl shadow-2xl max-w-sm w-full border border-gray-100 dark:border-gray-800"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FiDownload size={32} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {t('hero.confirmDownloadTitle') || 'Confirm Download'}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-8">
+                  {t('hero.confirmDownloadDesc') || 'Are you sure you want to download the CV?'}
+                </p>
+                <div className="flex gap-4 w-full">
+                  <button 
+                    onClick={() => setShowDownloadConfirm(false)}
+                    className="px-6 py-3 rounded-xl bg-gray-100 dark:bg-dark-surface hover:bg-gray-200 dark:hover:bg-dark-bg text-gray-900 dark:text-white font-medium flex-1 transition-colors"
+                  >
+                    {t('hero.cancel') || 'Cancel'}
+                  </button>
+                  <a 
+                    href={cvUrl} 
+                    download 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    onClick={() => setShowDownloadConfirm(false)}
+                    className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium flex-1 transition-colors flex items-center justify-center"
+                  >
+                    {t('hero.confirm') || 'Download'}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from 'react-icons/fi';
+import { FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div className="mb-6 md:mb-0 text-center md:text-left">
             <a href="#" className="font-bold text-2xl text-gradient tracking-tight">
-              Alex<span className="text-gray-900 dark:text-white">.dev</span>
+              Duran<span className="text-gray-900 dark:text-white">.dev</span>
             </a>
             <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-sm">
               Building digital products, brands, and experience.
@@ -22,21 +22,18 @@ const Footer = () => {
           </div>
 
           <div className="flex gap-4">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
-              <FiGithub size={20} />
+            <a href="mailto:johann.duran@outlook.com" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
+              <FiMail size={20} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
+            <a href="https://www.linkedin.com/in/johann-duran-bba115128/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
               <FiLinkedin size={20} />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
-              <FiTwitter size={20} />
             </a>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-200 dark:border-gray-800">
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Alex. {t('footer.rights')}
+            &copy; {new Date().getFullYear()} Duran. {t('footer.rights')}
           </p>
 
           <button 

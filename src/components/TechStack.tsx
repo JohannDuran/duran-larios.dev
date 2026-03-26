@@ -1,30 +1,33 @@
 import { motion, type Variants } from 'framer-motion';
 import { 
-  SiReact, SiVite, SiTailwindcss, SiFramer, SiTypescript, SiJavascript,
-  SiHtml5, SiCss3, SiNodedotjs, SiPython, SiGit, SiDocker,
-  SiFigma, SiMongodb, SiPostgresql, SiFirebase, SiAngular, SiVuedotjs
+  SiJavascript, SiTypescript, SiPhp, SiNodedotjs, SiNestjs,
+  SiExpress, SiGit, SiMysql, SiRedis, SiDocker, SiJenkins,
+  SiGraphql, SiAmazonwebservices, SiLaravel, SiCakephp, SiPrisma
 } from 'react-icons/si';
+import { TbBrandCSharp, TbSql } from 'react-icons/tb';
+import { FiLayers } from 'react-icons/fi';
 
 const TechStack = () => {
   const techs = [
-    { name: 'React', icon: SiReact, color: '#61DAFB' },
-    { name: 'Vue', icon: SiVuedotjs, color: '#4FC08D' },
-    { name: 'Angular', icon: SiAngular, color: '#DD0031' },
-    { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+    { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+    { name: 'SQL', icon: TbSql, color: '#4479A1' },
+    { name: 'PHP', icon: SiPhp, color: '#777BB4' },
+    { name: 'C#', icon: TbBrandCSharp, color: '#239120' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-    { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-    { name: 'Framer', icon: SiFramer, color: '#0055FF' },
-    { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
-    { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
-    { name: 'Python', icon: SiPython, color: '#3776AB' },
+    { name: 'NestJS', icon: SiNestjs, color: '#E0234E' },
+    { name: 'Express', icon: SiExpress, color: '#000000' },
     { name: 'Git', icon: SiGit, color: '#F05032' },
+    { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
+    { name: 'Redis', icon: SiRedis, color: '#DC382D' },
     { name: 'Docker', icon: SiDocker, color: '#2496ED' },
-    { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
-    { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-    { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-    { name: 'Firebase', icon: SiFirebase, color: '#FFCA28' },
-    { name: 'Vite', icon: SiVite, color: '#646CFF' },
+    { name: 'Jenkins', icon: SiJenkins, color: '#D33833' },
+    { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+    { name: 'AWS', icon: SiAmazonwebservices, color: '#232F3E' },
+    { name: 'Laravel', icon: SiLaravel, color: '#FF2D20' },
+    { name: 'CakePHP', icon: SiCakephp, color: '#D33C43' },
+    { name: 'Prisma', icon: SiPrisma, color: '#2D3748' },
+    { name: 'Microservicios', icon: FiLayers, color: '#06B6D4' },
   ];
 
   const containerVariants = {

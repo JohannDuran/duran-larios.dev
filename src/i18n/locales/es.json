@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "Sobre Mí",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "services": "Servicios",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "name": "Alex Developer",
+    "roles": ["Desarrollador Frontend", "Entusiasta UI/UX", "Desarrollador Full Stack"],
+    "viewWork": "Ver mi Trabajo",
+    "downloadCV": "Descargar CV"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Soy un desarrollador apasionado creando aplicaciones web hermosas, interactivas y responsivas. Con un ojo fuerte para el diseño y enfoque en la experiencia del usuario, construyo soluciones que no solo funcionan a la perfección sino que cautivan a los usuarios.",
+    "skills": "Mi Experiencia"
+  },
+  "projects": {
+    "title": "Mis Proyectos",
+    "liveDemo": "Demo en Vivo",
+    "github": "Código Fuente",
+    "all": "Todos"
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje",
+    "success": "¡Mensaje enviado con éxito!"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

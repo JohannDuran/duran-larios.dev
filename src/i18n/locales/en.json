@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "services": "Services",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I am",
+    "name": "Alex Developer",
+    "roles": ["Frontend Developer", "UI/UX Enthusiast", "Full Stack Developer"],
+    "viewWork": "View My Work",
+    "downloadCV": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm a passionate developer creating beautiful, interactive, and responsive web applications. With a strong eye for design and a focus on user experience, I build solutions that not only work seamlessly but also captivate users.",
+    "skills": "My Expertise"
+  },
+  "projects": {
+    "title": "My Projects",
+    "liveDemo": "Live Demo",
+    "github": "Source Code",
+    "all": "All"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

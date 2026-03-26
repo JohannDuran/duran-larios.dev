@@ -1,0 +1,54 @@
+# Nombre del workflow — aparece en la pestaña Actions de GitHub
+name: Deploy to Hostgator
+
+# Cuándo se ejecuta este workflow
+on:
+  push:               # Se dispara cuando haces git push
+    branches:
+      - Release       # Solo cuando el push es al branch "Release"
+
+# Trabajos que se ejecutan
+jobs:
+  deploy:                        # Nombre del job
+    runs-on: ubuntu-latest       # Corre en una máquina virtual con Ubuntu
+
+    # Pasos que ejecuta el job en orden
+    steps:
+      # Paso 1 — Descarga el código de tu repositorio en la máquina virtual
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      # Paso 2 — Instala Node.js versión 18 en la máquina virtual
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Paso 3 — Instala las dependencias del proyecto (npm install)
+      - name: Instalar dependencias
+        run: npm install
+
+      # Paso 4 — Genera los archivos estáticos del proyecto Next.js
+      # Crea la carpeta /out con todos los archivos listos para producción
+      - name: Build del proyecto
+        run: npm run build
+
+      # Paso 5 — Sube los archivos al servidor via FTP
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # Servidor FTP — tomado del secreto FTP_SERVER
+          server: ${{ secrets.FTP_SERVER }}
+          
+          # Usuario FTP — tomado del secreto FTP_USERNAME
+          username: ${{ secrets.FTP_USERNAME }}
+          
+          # Contraseña FTP — tomado del secreto FTP_PASSWORD
+          password: ${{ secrets.FTP_PASSWORD }}
+          
+          # Carpeta local que se sube — la carpeta out generada por Next.js
+          local-dir: ./out/
+          
+          # Carpeta destino en el servidor — raíz del usuario FTP
+          # que ya apunta a /home2/rivgoldc/duran-larios.dev/
+          server-dir: /

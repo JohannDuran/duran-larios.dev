@@ -28,8 +28,8 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      # Paso 4 — Genera los archivos estáticos del proyecto Next.js
-      # Crea la carpeta /out con todos los archivos listos para producción
+      # Paso 4 — Genera los archivos estáticos del proyecto Vite
+      # Crea la carpeta /dist con todos los archivos listos para producción
       - name: Build del proyecto
         run: npm run build
 
@@ -46,8 +46,8 @@ jobs:
           # Contraseña FTP — tomado del secreto FTP_PASSWORD
           password: ${{ secrets.FTP_PASSWORD }}
           
-          # Carpeta local que se sube — la carpeta out generada por Next.js
-          local-dir: ./out/
+          # Carpeta local que se sube — la carpeta dist generada por Vite
+          local-dir: ./dist/
           
           # Carpeta destino en el servidor — raíz del usuario FTP
           # que ya apunta a /home2/rivgoldc/duran-larios.dev/

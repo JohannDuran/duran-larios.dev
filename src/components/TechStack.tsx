@@ -2,9 +2,10 @@ import { motion, type Variants } from 'framer-motion';
 import { 
   SiJavascript, SiTypescript, SiPhp, SiNodedotjs, SiNestjs,
   SiExpress, SiGit, SiMysql, SiRedis, SiDocker, SiJenkins,
-  SiGraphql, SiAmazonwebservices, SiLaravel, SiCakephp, SiPrisma
+  SiGraphql, SiLaravel, SiCakephp, SiPrisma
 } from 'react-icons/si';
 import { TbBrandCSharp, TbSql } from 'react-icons/tb';
+import { FaAws } from 'react-icons/fa';
 import { FiLayers } from 'react-icons/fi';
 
 const TechStack = () => {
@@ -23,7 +24,7 @@ const TechStack = () => {
     { name: 'Docker', icon: SiDocker, color: '#2496ED' },
     { name: 'Jenkins', icon: SiJenkins, color: '#D33833' },
     { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
-    { name: 'AWS', icon: SiAmazonwebservices, color: '#232F3E' },
+    { name: 'AWS', icon: FaAws, color: '#232F3E' },
     { name: 'Laravel', icon: SiLaravel, color: '#FF2D20' },
     { name: 'CakePHP', icon: SiCakephp, color: '#D33C43' },
     { name: 'Prisma', icon: SiPrisma, color: '#2D3748' },

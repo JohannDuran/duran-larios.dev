@@ -6,8 +6,11 @@ import toast from 'react-hot-toast';
 
 const Contact = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  // `website` is a honeypot field: hidden from humans, bots tend to fill it.
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Timestamp of the last submission, used for simple client-side rate limiting.
+  const [lastSentAt, setLastSentAt] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,14 +18,48 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 1. Honeypot: if the hidden field is filled, it's almost certainly a bot.
+    //    Silently ignore to avoid tipping off the bot.
+    if (formData.website.trim() !== '') {
+      return;
+    }
+
+    // 2. Rate limit: block submissions fired less than 10s apart.
+    const now = Date.now();
+    if (now - lastSentAt < 10_000) {
+      toast.error(t('contact.rateLimit') || 'Please wait a few seconds before sending again.');
+      return;
+    }
+
+    // 3. Basic length guards to avoid absurd payloads.
+    if (formData.name.length > 100 || formData.email.length > 150 || formData.message.length > 2000) {
+      toast.error(t('contact.tooLong') || 'Your message is too long.');
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormData({ name: '', email: '', message: '' });
-      toast.success(t('contact.success') || 'Message sent successfully!');
-    }, 1500);
+
+    // Open the visitor's email client with the message pre-filled.
+    // No backend required: the visitor sends it from their own mail app.
+    const to = 'johann.duran@outlook.com';
+    const subject = `Portfolio contact from ${formData.name}`;
+    const body =
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n\n` +
+      `${formData.message}`;
+
+    const mailtoUrl =
+      `mailto:${to}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoUrl;
+
+    setLastSentAt(now);
+    setIsSubmitting(false);
+    setFormData({ name: '', email: '', message: '', website: '' });
+    toast.success(t('contact.success') || 'Opening your email app...');
   };
 
   return (
@@ -56,8 +93,8 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Email</h4>
-                <a href="mailto:johann.duran@outlook.com" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
-                  johann.duran@outlook.com
+                <a href="mailto:contact@duran-larios.dev" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  contact@duran-larios.dev
                 </a>
               </div>
             </div>
@@ -69,7 +106,7 @@ const Contact = () => {
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Location</h4>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Mérida, México<br/>Disponible Remoto
+                  Mérida, México<br/>Disponible Precencial|Remoto
                 </p>
               </div>
             </div>
@@ -96,6 +133,18 @@ const Contact = () => {
             className="w-full lg:w-2/3"
           >
             <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-3xl flex flex-col gap-6">
+              {/* Honeypot field — hidden from users, bots fill it and get blocked.
+                  Kept out of the layout and the tab order, and marked aria-hidden. */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="text-sm font-semibold text-gray-700 dark:text-gray-300 ml-2">

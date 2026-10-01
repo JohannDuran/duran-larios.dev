@@ -1,0 +1,94 @@
+# ============================================================
+#  Seguridad y configuración para Apache (Hostgator)
+#  Este archivo se copia automáticamente a /dist en el build
+#  y se sube a la raíz del sitio vía FTP.
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Forzar HTTPS (redirige todo http:// a https://)
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ------------------------------------------------------------
+# 2. Security headers
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Fuerza HTTPS durante 1 año (incluye subdominios). Activar solo
+  # cuando confirmes que el SSL funciona en todo el sitio.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Evita que el navegador "adivine" tipos MIME (anti-sniffing).
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Anti-clickjacking: impide que tu web sea embebida en un <iframe> ajeno.
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Controla cuánta info de referrer se envía al navegar a otros sitios.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Restringe APIs del navegador que no usas.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # Content Security Policy: define de dónde puede cargar recursos la web.
+  # Ajustado a lo que usa el portfolio:
+  #   - Google Fonts (fonts.googleapis.com / fonts.gstatic.com)
+  #   - Imágenes externas (unsplash, microlink screenshots, google, etc.)
+  #   - 'unsafe-inline' en style por Tailwind/estilos inline y framer-motion
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://api.microlink.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+# ------------------------------------------------------------
+# 3. Bloquear acceso a archivos sensibles
+# ------------------------------------------------------------
+<FilesMatch "(^\.|\.(env|json|lock|log|map|md|yml|yaml|ini|sh|bak)$)">
+  Require all denied
+</FilesMatch>
+
+# Permitir manifest.json / otros .json públicos si los necesitas,
+# descomentando y nombrándolos explícitamente:
+# <Files "manifest.json">
+#   Require all granted
+# </Files>
+
+# ------------------------------------------------------------
+# 4. Desactivar el listado de directorios
+# ------------------------------------------------------------
+Options -Indexes
+
+# ------------------------------------------------------------
+# 5. SPA fallback — redirige rutas al index.html (React Router / enlaces internos)
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# ------------------------------------------------------------
+# 6. Compresión GZIP (rendimiento)
+# ------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------
+# 7. Caché de assets estáticos (rendimiento)
+# ------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

@@ -3,65 +3,116 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import ProjectPreview from './ProjectPreview';
 
+// Non-translatable project data (image, tags, links). Translatable text
+// (title, description) lives in the i18n locale files under `projects.items`,
+// matched to each project by `id`.
 const projectsData = [
   {
     id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with modern UI, secure payments, and admin dashboard.',
     image: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=800&auto=format&fit=crop',
-    tags: ['React', 'Node.js', 'MongoDB', 'Tailwind'],
-    live: '#',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    live: 'https://www.agencydsn.com',
     github: '#'
   },
   {
     id: 2,
-    title: 'AI Dashboard',
-    description: 'Analytics dashboard featuring real-time data visualization and AI-powered insights.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
-    tags: ['Next.js', 'TypeScript', 'Python', 'Tailwind'],
-    live: '#',
+    tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 4'],
+    live: 'https://www.inclusivecolle.com/',
     github: '#'
   },
   {
     id: 3,
-    title: 'Social Network App',
-    description: 'Real-time social application with chat, video sharing, and customizable profiles.',
     image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop',
-    tags: ['React', 'Firebase', 'Tailwind'],
-    live: '#',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    live: 'https://www.intervalmp.com',
     github: '#'
   },
   {
     id: 4,
-    title: 'Fintech Mobile App',
-    description: 'Cross-platform mobile wallet for tracking expenses and managing cryptocurrency.',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop',
-    tags: ['React Native', 'TypeScript', 'Node.js'],
-    live: '#',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    live: 'http://www.rivgoldcorporacion.com',
     github: '#'
   },
   {
     id: 5,
-    title: 'Portfolio Generator',
-    description: 'SaaS tool for developers to generate beautiful portfolios based on their GitHub profile.',
     image: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=800&auto=format&fit=crop',
-    tags: ['Vue', 'Express', 'MongoDB'],
-    live: '#',
+    tags: ['Astro 5', 'React 18', 'TypeScript', 'Tailwind'],
+    live: 'https://experienciasxm.com.mx',
+    github: '#'
+  },
+  {
+    id: 6,
+    image: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=800&auto=format&fit=crop',
+    tags: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind', 'Firebase 11', 'Radix UI'],
+    live: 'https://pamelamorcillo.com/',
     github: '#'
   },
 ];
+
+// Shape of a translated project entry coming from the locale files.
+interface ProjectTranslation {
+  id: number;
+  title: string;
+  description: string;
+}
 
 const Projects = () => {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('All');
 
-  // Show only 4 primary tags for the filter bar to keep it clean
-  const filterTags = ['All', 'React', 'TypeScript', 'Node.js', 'Tailwind'];
+  // Translated title/description per project, keyed by id.
+  const translations = (t('projects.items', { returnObjects: true }) as ProjectTranslation[]) || [];
 
-  const filteredProjects = filter === 'All' 
-    ? projectsData 
-    : projectsData.filter(p => p.tags.includes(filter));
+  // Merge static data with the translations for the current language.
+  const projects = projectsData.map((project) => {
+    const translation = translations.find((item) => item.id === project.id);
+    return {
+      ...project,
+      title: translation?.title ?? '',
+      description: translation?.description ?? '',
+    };
+  });
+
+  // Show only a few primary tags for the filter bar to keep it clean
+  const filterTags = ['All', 'React', 'Bootstrap', 'Vanilla Web', 'Astro', 'Tailwind', 'Next.js'];
+
+  // Maps each filter button to the real project tags it should match.
+  // - `all`:  every listed tag must be present in the project (AND logic).
+  // - `any`:  at least one listed tag (or prefix) must match (OR logic).
+  // Matching is case-insensitive and prefix-based, so "Bootstrap" matches
+  // "Bootstrap 4" and "React" matches "React 18"/"React 19".
+  const filterAliases: Record<string, { mode: 'all' | 'any'; tags: string[] }> = {
+    'Vanilla Web': { mode: 'all', tags: ['HTML', 'CSS', 'JavaScript'] },
+    'Bootstrap': { mode: 'any', tags: ['Bootstrap'] },
+    'React': { mode: 'any', tags: ['React'] },
+    'Astro': { mode: 'any', tags: ['Astro 5'] },
+    'Tailwind': { mode: 'any', tags: ['Tailwind'] },
+    'Next.js': { mode: 'any', tags: ['Next.js'] },
+  };
+
+  // True if `projectTags` satisfies the given `filter`.
+  const matchesFilter = (projectTags: string[], filterName: string): boolean => {
+    if (filterName === 'All') return true;
+
+    const normalized = projectTags.map((tag) => tag.toLowerCase());
+    const alias = filterAliases[filterName];
+
+    // Fallback: no alias defined → exact (case-insensitive) tag match.
+    const rules = alias ?? { mode: 'any' as const, tags: [filterName] };
+
+    const hasTag = (needle: string) =>
+      normalized.some((tag) => tag.startsWith(needle.toLowerCase()));
+
+    return rules.mode === 'all'
+      ? rules.tags.every(hasTag)
+      : rules.tags.some(hasTag);
+  };
+
+  const filteredProjects = projects.filter((p) => matchesFilter(p.tags, filter));
 
   return (
     <section id="projects" className="py-24 bg-white dark:bg-dark-bg transition-colors duration-300">
@@ -74,7 +125,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            {t('projects.title') || 'My Projects'}
+            {t('projects.title')}
           </h2>
           <div className="w-20 h-1.5 bg-primary-500 mx-auto rounded-full"></div>
         </motion.div>
@@ -91,7 +142,7 @@ const Projects = () => {
                   : 'bg-gray-100 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
               }`}
             >
-              {tag === 'All' ? (t('projects.all') || 'All') : tag}
+              {tag === 'All' ? t('projects.all') : tag}
             </button>
           ))}
         </div>
@@ -119,9 +170,10 @@ const Projects = () => {
                   <div className="glass rounded-2xl overflow-hidden h-full flex flex-col group transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/10 border border-gray-100 dark:border-gray-800">
                     <div className="relative h-56 overflow-hidden">
                       <div className="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors z-10 duration-500"></div>
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
+                      <ProjectPreview
+                        liveUrl={project.live}
+                        fallbackImage={project.image}
+                        alt={project.title}
                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                       />
                     </div>
@@ -144,10 +196,10 @@ const Projects = () => {
                       
                       <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
                         <a href={project.live} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-                          <FiExternalLink /> Live Demo
+                          <FiExternalLink /> {t('projects.liveDemo')}
                         </a>
                         <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-                          <FiGithub /> Source Code
+                          <FiGithub /> {t('projects.github')}
                         </a>
                       </div>
                     </div>
@@ -163,3 +215,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

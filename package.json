@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules dist package-lock.json",
+    "restart": "npm run clean && npm i && npm run build && npm run dev"
   },
   "dependencies": {
     "@tsparticles/engine": "^3.9.1",

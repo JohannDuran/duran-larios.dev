@@ -40,6 +40,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 dump.rdb
+tsc_errors.log
+*.tsbuildinfo
 
 # System files
 .DS_Store

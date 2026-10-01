@@ -2,6 +2,17 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FiBriefcase, FiAward } from 'react-icons/fi';
 
+// Background image per experience card, keyed by the item's `id`.
+// Add a new entry here to give any card its own background. Cards whose
+// id is not listed render with the default glass style (no image).
+const cardBackgrounds: Record<number, string> = {
+  1: 'https://play-lh.googleusercontent.com/XgYXR5kLXNPEM0mllxDOMTmwYgzHEQnwiKiOeWwgm2RM02aJiCdRZnxrJ1zPuI2q3ddgY7lSFhKWEpwj7_dmFA=w480-h960-rw', // Macropay
+  2: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa85inRQkFADvo-kZDoue0H4o5hnoS5vZJxa_sOwKqMud0COHcxTwZHcmf&s=10', // Grupo Colorines
+  3: '', //OneSmart
+  4: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsuCKD3RQBDCpypu3tcfy_t6Jp44u4TS6vItnDS3abA&s=10', // Compufax
+  5: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhxobbRmlvjKpZCyUCqv5Rhs-0wyVih-T-tf_k3dU0Eg&s=10', // Tecnologico
+};
+
 
 const Experience = () => {
   const { t } = useTranslation();
@@ -38,6 +49,7 @@ const Experience = () => {
           <div className="space-y-12 shrink-0">
             {experiences.map((exp, index) => {
               const isEven = index % 2 === 0;
+              const bgImage = cardBackgrounds[exp.id];
               
               return (
                 <motion.div 
@@ -60,8 +72,19 @@ const Experience = () => {
                   {/* Content card */}
                   {/* For mobile, it has ml-[60px] to start exactly right after the icon. For desktop, it takes nearly half minus the icon's radius  */}
                   <div className={`w-full md:w-1/2 flex flex-col pl-[60px] ml-4 md:ml-0 md:pl-0 ${isEven ? 'md:items-end md:pr-[20px]' : 'md:items-start md:pl-[20px]'}`}>
-                    <div className="glass p-6 md:p-8 rounded-2xl md:rounded-[2rem] hover:border-primary-500/50 transition-all duration-300 group-hover:shadow-primary-500/20 group-hover:shadow-2xl w-full flex flex-col group/card overflow-hidden">
-                      <div className={`flex flex-col ${isEven ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}>
+                    <div
+                      className="glass relative p-6 md:p-8 rounded-2xl md:rounded-[2rem] hover:border-primary-500/50 transition-all duration-300 group-hover:shadow-primary-500/20 group-hover:shadow-2xl w-full flex flex-col group/card overflow-hidden bg-cover bg-center"
+                      style={
+                        bgImage
+                          ? { backgroundImage: `url(${bgImage})` }
+                          : undefined
+                      }
+                    >
+                      {/* Overlay to keep text readable over the background image (cards with a bgImage only) */}
+                      {bgImage && (
+                        <div className="absolute inset-0 bg-white/80 dark:bg-dark-surface/85 backdrop-blur-sm pointer-events-none" />
+                      )}
+                      <div className={`relative flex flex-col ${isEven ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}>
                         <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-primary-600 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/40 rounded-full border border-primary-100 dark:border-primary-800/50 shadow-sm">
                           {exp.period}
                         </span>

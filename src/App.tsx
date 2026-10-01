@@ -8,7 +8,7 @@ import TechStack from './components/TechStack';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Services from './components/Services';
-import Testimonials from './components/Testimonials';
+// import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
           <Projects />
           <Experience />
           <Services />
-          <Testimonials />
+          {/*<Testimonials />*/}
           <Contact />
         </Layout>
       )}

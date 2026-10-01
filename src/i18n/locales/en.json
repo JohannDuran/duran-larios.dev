@@ -28,7 +28,65 @@
     "title": "My Projects",
     "liveDemo": "Live Demo",
     "github": "Source Code",
-    "all": "All"
+    "all": "All",
+    "items": [
+      {
+        "id": 1,
+        "title": "Cancún · Interior Design",
+        "description": "Interior design and decoration agency in Cancun."
+      },
+      {
+        "id": 2,
+        "title": "Cancún · Interior & Remodeling",
+        "description": "Digital platform for a studio offering interior design, remodeling, and smart home automation services."
+      },
+      {
+        "id": 3,
+        "title": "Digital Marketing Agency",
+        "description": "Digital marketing agency offering business strategies, web design, and brand development services."
+      },
+      {
+        "id": 4,
+        "title": "Corporate Financial Consulting",
+        "description": "Comprehensive accounting solutions, federal and state tax management, and property administration services."
+      },
+      {
+        "id": 5,
+        "title": "Marketing Agency",
+        "description": "Creative advertising agency focused on transforming brands through strategy, creativity, and digital technology."
+      },
+      {
+        "id": 6,
+        "title": "Holistic Therapy Site",
+        "description": "Official website of a holistic therapist specializing in deep healing, subconscious work, and personal transformation."
+      }
+    ]
+  },
+  "services":{
+    "title": "Services",
+    "description": "Comprehensive solutions to help you build your digital product from the ground up.",
+    "items": [
+      {
+        "id": 1,
+        "title":"Web Development",
+        "description":"High-performance, responsive websites built with modern frameworks like React and Next.js."
+      },
+      {
+        "id": 2,
+        "title": "UI/UX Design",
+        "description": "Intuitive, accessible, and beautiful user interfaces designed in Figma."
+      },
+      {
+        "id": 3,
+        "title": "Backend Systems",
+        "description": "Robust APIs and database architectures using Node.js, Express, and PostgreSQL."
+      },
+      {
+        "id": 4,
+        "title": "Technical Writing",
+        "description": "Clear, concise documentation and technical articles for engineering teams."
+      }
+    ]
   },
   "contact": {
     "title": "Get in Touch",

@@ -28,7 +28,65 @@
     "title": "Mis Proyectos",
     "liveDemo": "Demo en Vivo",
     "github": "Código Fuente",
-    "all": "Todos"
+    "all": "Todos",
+    "items": [
+      {
+        "id": 1,
+        "title": "Diseño de interiores · Cancún",
+        "description": "Agencia de diseño de interiores y decoración en Cancún."
+      },
+      {
+        "id": 2,
+        "title": "Interiorismo y Remodelación · Cancún",
+        "description": "Plataforma digital de un estudio que ofrece servicios de diseño, remodelación y hogares inteligentes."
+      },
+      {
+        "id": 3,
+        "title": "Agencia Marketing Digital",
+        "description": "Agencia de marketing digital que ofrece estrategias, diseño web y branding."
+      },
+      {
+        "id": 4,
+        "title": "Consultoría Financiera Corporativa",
+        "description": "Soluciones contables, gestión de impuestos federales/estatales y administración de bienes raíces."
+      },
+      {
+        "id": 5,
+        "title": "Agencia de Marketing",
+        "description": "Agencia publicitaria enfocada en transformar marcas mediante estrategia, creatividad y tecnología digital."
+      },
+      {
+        "id": 6,
+        "title": "Terapia Holística Integral",
+        "description": "Sitio web oficial de una terapeuta holística especializada en sanación profunda, biodescodificación e hipnosis."
+      }
+    ]
+  },
+  "services":{
+    "title": "Servicios",
+    "description": "Soluciones integrales para ayudarte a construir tu producto digital desde cero.",
+    "items": [
+      {
+        "id": 1,
+        "title":"Desarrollo Web",
+        "description":"Sitios web de alto rendimiento y responsivos, construidos con frameworks modernos como React y Next.js."
+      },
+      {
+        "id": 2,
+        "title": "Diseño UX/UI",
+        "description": "Interfaces de usuario intuitivas, accesibles y atractivas diseñadas en Figma."
+      },
+      {
+        "id": 3,
+        "title": "Sistemas de backend",
+        "description": "APIs robustas y arquitecturas de bases de datos usando Node.js, Express y PostgreSQL."
+      },
+      {
+        "id": 4,
+        "title": "Redacción técnica",
+        "description": "Documentación clara y concisa y artículos técnicos para equipos de ingeniería."
+      }
+    ]
   },
   "contact": {
     "title": "Ponte en Contacto",

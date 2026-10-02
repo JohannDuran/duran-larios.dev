@@ -51,4 +51,4 @@ jobs:
           
           # Carpeta destino en el servidor — raíz del usuario FTP
           # que ya apunta a /home2/rivgoldc/duran-larios.dev/
-          server-dir: ${{secrets.FTP_SERVER_DIR}}ser
+          server-dir: ${{secrets.FTP_SERVER_DIR}}

@@ -4,6 +4,19 @@ import { motion } from 'framer-motion';
 import { FiMail, FiMapPin, FiPhone, FiSend } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
+// Web3Forms access key. This key is meant to live in the frontend (it only
+// authorizes sending to the inbox configured on web3forms.com), so hardcoding
+// it is fine. Can be overridden via VITE_WEB3FORMS_KEY if desired.
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_KEY || '2ca9314d-d16a-41ae-bb88-d5f2bfa6e9b2';
+
+// Generate a simple math challenge (small numbers, addition only).
+const makeCaptcha = () => {
+  const a = Math.floor(Math.random() * 8) + 1; // 1–8
+  const b = Math.floor(Math.random() * 8) + 1; // 1–8
+  return { a, b, answer: a + b };
+};
+
 const Contact = () => {
   const { t } = useTranslation();
   // `website` is a honeypot field: hidden from humans, bots tend to fill it.
@@ -11,6 +24,9 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Timestamp of the last submission, used for simple client-side rate limiting.
   const [lastSentAt, setLastSentAt] = useState(0);
+  // Simple math captcha challenge + the user's typed answer.
+  const [captcha, setCaptcha] = useState(makeCaptcha);
+  const [captchaInput, setCaptchaInput] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,39 +72,53 @@ const Contact = () => {
       return;
     }
 
+    // 4. Require the correct answer to the simple math captcha.
+    if (parseInt(captchaInput, 10) !== captcha.answer) {
+      toast.error(t('contact.captcha') || 'Incorrect captcha answer.');
+      setCaptcha(makeCaptcha());
+      setCaptchaInput('');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Send as application/x-www-form-urlencoded instead of JSON.
-      // Shared-hosting WAFs (mod_security on Hostgator) often reject JSON
-      // POST bodies with a 409 Conflict; form-encoded bodies pass cleanly.
-      const params = new URLSearchParams();
-      params.append('name', name);
-      params.append('email', email);
-      params.append('message', message);
-      params.append('website', formData.website);
-
-      const res = await fetch('/contact.php', {
+      // Submit through Web3Forms (external service). This keeps the contact
+      // form fully client-side and avoids any server/PHP dependency.
+      // The destination inbox is tied to the access key; `cc` adds a copy.
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        body: params.toString(),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Nuevo mensaje de contacto - ${name}`,
+          from_name: 'Portfolio duran-larios.dev',
+          name,
+          email,
+          message,
+          cc: 'johann.duran@outlook.com',
+          botcheck: formData.website, // honeypot, Web3Forms ignores filled ones
+        }),
       });
 
-      const data = await res.json().catch(() => ({ ok: false }));
+      const data = await res.json().catch(() => ({ success: false }));
 
-      if (res.ok && data.ok) {
+      if (res.ok && data.success) {
         setLastSentAt(now);
         setFormData({ name: '', email: '', message: '', website: '' });
         toast.success(t('contact.success') || 'Message sent successfully!');
-      } else if (res.status === 429) {
-        // Server-side rate limit hit.
-        toast.error(t('contact.rateLimit') || 'Too many messages. Please try again later.');
       } else {
         toast.error(t('contact.error') || 'Something went wrong. Please try again.');
       }
     } catch {
       toast.error(t('contact.error') || 'Something went wrong. Please try again.');
     } finally {
+      // Refresh the captcha for the next submission.
+      setCaptcha(makeCaptcha());
+      setCaptchaInput('');
       setIsSubmitting(false);
     }
   };
@@ -223,6 +253,25 @@ const Contact = () => {
                   className="px-6 py-4 rounded-xl bg-white/50 dark:bg-dark-surface/50 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-400 dark:placeholder-gray-600 text-gray-900 dark:text-white resize-none"
                   placeholder="How can I help you?"
                 ></textarea>
+              </div>
+
+              {/* Simple math captcha — blocks basic bots, no external service. */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="captcha" className="text-sm font-semibold text-gray-700 dark:text-gray-300 ml-2">
+                  {t('contact.captchaLabel') || 'Anti-spam'}: {captcha.a} + {captcha.b} = ?
+                </label>
+                <input
+                  type="text"
+                  id="captcha"
+                  name="captcha"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  required
+                  className="px-6 py-4 rounded-xl bg-white/50 dark:bg-dark-surface/50 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-400 dark:placeholder-gray-600 text-gray-900 dark:text-white"
+                  placeholder={t('contact.captchaPlaceholder') || 'Your answer'}
+                />
               </div>
 
               <button

@@ -109,7 +109,10 @@
     "error": "Something went wrong. Please try again.",
     "rateLimit": "Too many messages. Please wait a moment before sending again.",
     "tooLong": "Your message is too long.",
-    "invalidEmail": "Please enter a valid email address."
+    "invalidEmail": "Please enter a valid email address.",
+    "captcha": "Incorrect answer. Please try again.",
+    "captchaLabel": "Anti-spam",
+    "captchaPlaceholder": "Your answer"
   },
   "footer": {
     "rights": "All rights reserved."

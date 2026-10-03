@@ -109,7 +109,10 @@
     "error": "Algo salió mal. Por favor, inténtalo de nuevo.",
     "rateLimit": "Demasiados mensajes. Espera un momento antes de enviar de nuevo.",
     "tooLong": "Tu mensaje es demasiado largo.",
-    "invalidEmail": "Por favor, introduce un correo electrónico válido."
+    "invalidEmail": "Por favor, introduce un correo electrónico válido.",
+    "captcha": "Respuesta incorrecta. Inténtalo de nuevo.",
+    "captchaLabel": "Anti-spam",
+    "captchaPlaceholder": "Tu respuesta"
   },
   "footer": {
     "rights": "Todos los derechos reservados."

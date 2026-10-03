@@ -39,7 +39,7 @@
   #   - gstatic / googleusercontent (logos de experiencia)
   #   - microlink (screenshots de proyectos)
   #   - data: (favicon inline) y blob: (framer-motion)
-  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://images.unsplash.com https://*.gstatic.com https://*.googleusercontent.com https://api.microlink.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://api.microlink.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://images.unsplash.com https://*.gstatic.com https://*.googleusercontent.com https://api.microlink.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://api.microlink.io https://api.web3forms.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
 # ------------------------------------------------------------
@@ -63,12 +63,6 @@ LimitRequestBody 102400
 <FilesMatch "(^\.|\.(env|json|lock|log|map|md|yml|yaml|ini|sh|bak|sql|tar|gz|zip|php\.bak)$)">
   Require all denied
 </FilesMatch>
-
-# Permitir explícitamente contact.php (excepción al bloqueo de acceso directo
-# a otros .php si los hubiera; innecesario hoy, pero futuro-proof).
-<Files "contact.php">
-  Require all granted
-</Files>
 
 # ------------------------------------------------------------
 # 6. Desactivar el listado de directorios

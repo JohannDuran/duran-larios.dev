@@ -135,12 +135,6 @@ const Services = () => {
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                     {service.description}
                   </p>
-
-                  {/* "Learn more" affordance appears on hover */}
-                  <div className="mt-6 flex items-center gap-2 text-primary-500 font-semibold text-sm opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                    <span>{t('services.learnMore') || 'Saber más'}</span>
-                    <FiArrowUpRight className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </div>
                 </div>
               </div>
             </motion.div>

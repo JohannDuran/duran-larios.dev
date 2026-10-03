@@ -14,11 +14,13 @@
     "titelRol": "Soy un",
     "roles": ["Desarrollador Web", "Entusiasta Frontend","Desarrollador Backend", "Desarrollador Full Stack"],
     "viewWork": "Ver mi Trabajo",
-    "downloadCV": "Descargar CV",
+    "downloadCV": "CV",
     "confirmDownloadTitle": "Descargar CV",
     "confirmDownloadDesc": "¿Estás seguro que deseas descargar mi currículum en formato PDF?",
     "cancel": "Cancelar",
-    "confirm": "Descargar"
+    "confirm": "Descargar",
+    "view": "Ver",
+    "download": "Descargar"
   },
   "about": {
     "title": "Sobre Mí",

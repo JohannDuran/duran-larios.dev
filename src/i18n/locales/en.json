@@ -14,11 +14,13 @@
     "titelRol": "I am a",
     "roles": ["Web Developer", "Frontend Enthusiast", "Backend Developer", "Full Stack Developer"],
     "viewWork": "View My Work",
-    "downloadCV": "Download CV",
+    "downloadCV": "CV",
     "confirmDownloadTitle": "Download CV",
     "confirmDownloadDesc": "Are you sure you want to download my resume in PDF format?",
     "cancel": "Cancel",
-    "confirm": "Download"
+    "confirm": "Download",
+    "view": "View",
+    "download": "Download"
   },
   "about": {
     "title": "About Me",

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TypeAnimation } from 'react-type-animation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiArrowRight, FiDownload } from 'react-icons/fi';
+import { FiArrowRight, FiDownload, FiEye } from 'react-icons/fi';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
@@ -19,6 +19,30 @@ const Hero = () => {
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowDownloadConfirm(true);
+  };
+
+  // Nombre de archivo según idioma
+  const cvFileName = i18n.language?.startsWith('es') ? 'ESP_RESUME.pdf' : 'ENG_RESUME.pdf';
+
+  // Fuerza la descarga del PDF aunque esté en otro dominio (cross-origin).
+  // El atributo "download" nativo no funciona cross-origin, por eso usamos fetch + blob.
+  const handleForceDownload = async () => {
+    try {
+      const response = await fetch(cvUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = cvFileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch {
+      // Fallback: si falla (p. ej. CORS), abre el PDF en otra pestaña
+      window.open(cvUrl, '_blank', 'noopener,noreferrer');
+    }
+    setShowDownloadConfirm(false);
   };
 
   return (
@@ -114,23 +138,30 @@ const Hero = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-8">
                   {t('hero.confirmDownloadDesc') || 'Are you sure you want to download the CV?'}
                 </p>
-                <div className="flex gap-4 w-full">
-                  <button 
+                <div className="flex flex-col gap-3 w-full">
+                  <div className="flex gap-3 w-full">
+                    <a
+                      href={cvUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setShowDownloadConfirm(false)}
+                      className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium flex-1 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <FiEye /> {t('hero.view') || 'View'}
+                    </a>
+                    <button
+                      onClick={handleForceDownload}
+                      className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium flex-1 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <FiDownload /> {t('hero.download') || 'Download'}
+                    </button>
+                  </div>
+                  <button
                     onClick={() => setShowDownloadConfirm(false)}
-                    className="px-6 py-3 rounded-xl bg-gray-100 dark:bg-dark-surface hover:bg-gray-200 dark:hover:bg-dark-bg text-gray-900 dark:text-white font-medium flex-1 transition-colors"
+                    className="px-6 py-3 rounded-xl bg-gray-100 dark:bg-dark-surface hover:bg-gray-200 dark:hover:bg-dark-bg text-gray-900 dark:text-white font-medium w-full transition-colors"
                   >
                     {t('hero.cancel') || 'Cancel'}
                   </button>
-                  <a 
-                    href={cvUrl} 
-                    download 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    onClick={() => setShowDownloadConfirm(false)}
-                    className="px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium flex-1 transition-colors flex items-center justify-center"
-                  >
-                    {t('hero.confirm') || 'Download'}
-                  </a>
                 </div>
               </div>
             </motion.div>

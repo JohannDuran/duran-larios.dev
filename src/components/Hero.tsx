@@ -14,7 +14,7 @@ const Hero = () => {
   const typeSequence = roles.flatMap(role => [role, 2000]);
 
   // Determine the correct CV file based on current language
-  const cvUrl = i18n.language?.startsWith('es') ? '/cv/ES-RESUME.pdf' : '/cv/EN-RESUME.pdf';
+  const cvUrl = i18n.language?.startsWith('es') ? '/cv/ESP-RESUME.pdf' : '/cv/ENG-RESUME.pdf';
 
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.preventDefault();

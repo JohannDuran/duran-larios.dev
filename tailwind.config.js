@@ -33,10 +33,12 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       animation: {
         'blob': 'blob 7s infinite',
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'ping-slow': 'pingSlow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
       keyframes: {
         blob: {
@@ -48,7 +50,11 @@ export default {
         fadeInUp: {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
+        },
+        pingSlow: {
+          '0%': { transform: 'scale(1)', opacity: '0.6' },
+          '75%, 100%': { transform: 'scale(2.2)', opacity: '0' },
+        },
       }
     },
   },

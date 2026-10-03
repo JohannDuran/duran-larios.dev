@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -40,5 +40,33 @@
   }
   .bg-gradient-primary {
     @apply bg-gradient-to-r from-primary-600 to-accent-dark;
+  }
+
+  /* Dimensional Layering — 4-level elevation scale (ui-ux-pro-max recommendation).
+     Gives cards a clear spatial hierarchy instead of a single flat shadow. */
+  .elevation-1 { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+  .elevation-2 { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+  .elevation-3 { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); }
+  .elevation-4 { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16); }
+  .dark .elevation-1 { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
+  .dark .elevation-2 { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.45); }
+  .dark .elevation-3 { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); }
+  .dark .elevation-4 { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55); }
+}
+
+/* Accessibility: honor the user's reduced-motion preference (ux-guideline, High).
+   Disables blobs, scroll reveals and transitions so the final state is shown
+   immediately without parallax/looping motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-blob {
+    animation: none !important;
   }
 }

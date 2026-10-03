@@ -10,7 +10,7 @@
   },
   "hero": {
     "greeting": "Hola, soy",
-    "name": "Johann Durán Developer",
+    "name": "Johann Durán",
     "roles": ["Desarrollador Web", "Entusiasta Frontend","Desarrollador Backend", "Desarrollador Full Stack"],
     "viewWork": "Ver mi Trabajo",
     "downloadCV": "Descargar CV",
@@ -26,7 +26,7 @@
   },
   "projects": {
     "title": "Mis Proyectos",
-    "liveDemo": "Demo en Vivo",
+    "liveDemo": "Ir al Sitio",
     "github": "Código Fuente",
     "all": "Todos",
     "items": [
@@ -65,26 +65,37 @@
   "services":{
     "title": "Servicios",
     "description": "Soluciones integrales para ayudarte a construir tu producto digital desde cero.",
+    "learnMore": "Saber más",
     "items": [
       {
         "id": 1,
-        "title":"Desarrollo Web",
-        "description":"Sitios web de alto rendimiento y responsivos, construidos con frameworks modernos como React y Next.js."
+        "title": "Desarrollo de Software y Arquitectura Web",
+        "description": "Creación de plataformas web a medida, CRMs y sitios de alto rendimiento orientados a la conversión (React, Next.js, Tailwind)."
       },
       {
         "id": 2,
-        "title": "Diseño UX/UI",
-        "description": "Interfaces de usuario intuitivas, accesibles y atractivas diseñadas en Figma."
+        "title": "Sistemas Backend y APIs",
+        "description": "Desarrollo de lógica de negocio robusta, integración de servicios externos y bases de datos seguras (Node.js, NestJS, SQL)."
       },
       {
         "id": 3,
-        "title": "Sistemas de backend",
-        "description": "APIs robustas y arquitecturas de bases de datos usando Node.js, Express y PostgreSQL."
+        "title": "Infraestructura y Despliegue",
+        "description": "Configuración de servidores, automatización de pases a producción y gestión de dominios para que tu plataforma nunca se caiga."
       },
       {
         "id": 4,
-        "title": "Redacción técnica",
-        "description": "Documentación clara y concisa y artículos técnicos para equipos de ingeniería."
+        "title": "Integración de IA y Automatización",
+        "description": "Conexión de tu plataforma con APIs de Inteligencia Artificial (Anthropic, OpenAI) para automatizar el procesamiento de datos y potenciar flujos de trabajo."
+      },
+      {
+        "id": 5,
+        "title": "Pasarelas de Pago y Fintech",
+        "description": "Implementación segura de cobros en línea y conexión con ecosistemas financieros o bancarios para la sincronización de datos en tiempo real."
+      },
+      {
+        "id": 6,
+        "title": "Mantenimiento y Optimización",
+        "description": "Auditorías de seguridad, optimización de tiempos de carga y refactorización de código para escalar sistemas existentes."
       }
     ]
   },
@@ -94,13 +105,20 @@
     "email": "Correo",
     "message": "Mensaje",
     "send": "Enviar Mensaje",
-    "success": "¡Mensaje enviado con éxito!"
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "Algo salió mal. Por favor, inténtalo de nuevo.",
+    "rateLimit": "Demasiados mensajes. Espera un momento antes de enviar de nuevo.",
+    "tooLong": "Tu mensaje es demasiado largo.",
+    "invalidEmail": "Por favor, introduce un correo electrónico válido."
   },
   "footer": {
     "rights": "Todos los derechos reservados."
   },
   "experienceSection": {
     "title": "Experiencia y Educación",
+    "kicker": "Trayectoria",
+    "work": "Trabajo",
+    "education": "Educación",
     "items": [
       {
         "id": 1,

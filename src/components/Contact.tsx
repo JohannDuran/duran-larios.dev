@@ -16,7 +16,7 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // 1. Honeypot: if the hidden field is filled, it's almost certainly a bot.
@@ -25,41 +25,63 @@ const Contact = () => {
       return;
     }
 
-    // 2. Rate limit: block submissions fired less than 10s apart.
+    // 2. Rate limit (client-side): block submissions fired less than 15s apart.
+    //    The server enforces its own stricter limit; this is just UX.
     const now = Date.now();
-    if (now - lastSentAt < 10_000) {
+    if (now - lastSentAt < 15_000) {
       toast.error(t('contact.rateLimit') || 'Please wait a few seconds before sending again.');
       return;
     }
 
-    // 3. Basic length guards to avoid absurd payloads.
-    if (formData.name.length > 100 || formData.email.length > 150 || formData.message.length > 2000) {
+    // 3. Trim + validate input before sending.
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (name === '' || email === '' || message === '') {
+      toast.error(t('contact.error') || 'Please fill in all fields.');
+      return;
+    }
+
+    // Length guards (mirror the server limits).
+    if (name.length > 100 || email.length > 150 || message.length > 2000) {
       toast.error(t('contact.tooLong') || 'Your message is too long.');
+      return;
+    }
+
+    // Basic email format check (the server also validates).
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      toast.error(t('contact.invalidEmail') || 'Please enter a valid email address.');
       return;
     }
 
     setIsSubmitting(true);
 
-    // Open the visitor's email client with the message pre-filled.
-    // No backend required: the visitor sends it from their own mail app.
-    const to = 'johann.duran@outlook.com';
-    const subject = `Portfolio contact from ${formData.name}`;
-    const body =
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n\n` +
-      `${formData.message}`;
+    try {
+      const res = await fetch('/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, website: formData.website }),
+      });
 
-    const mailtoUrl =
-      `mailto:${to}` +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(body)}`;
+      const data = await res.json().catch(() => ({ ok: false }));
 
-    window.location.href = mailtoUrl;
-
-    setLastSentAt(now);
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '', website: '' });
-    toast.success(t('contact.success') || 'Opening your email app...');
+      if (res.ok && data.ok) {
+        setLastSentAt(now);
+        setFormData({ name: '', email: '', message: '', website: '' });
+        toast.success(t('contact.success') || 'Message sent successfully!');
+      } else if (res.status === 429) {
+        // Server-side rate limit hit.
+        toast.error(t('contact.rateLimit') || 'Too many messages. Please try again later.');
+      } else {
+        toast.error(t('contact.error') || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      toast.error(t('contact.error') || 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -106,7 +128,7 @@ const Contact = () => {
               <div>
                 <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Location</h4>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Mérida, México<br/>Disponible Precencial|Remoto
+                  Mérida, México<br/>Disponible Presencial|Remoto
                 </p>
               </div>
             </div>

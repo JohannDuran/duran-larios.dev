@@ -5,6 +5,8 @@ const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isPointerCoarse, setIsPointerCoarse] = useState(false);
+  // Only show the cursor while the pointer is inside the "About" section.
+  const [isInAbout, setIsInAbout] = useState(false);
 
   useEffect(() => {
     // Only run on desktop, avoid execution on touch devices
@@ -15,6 +17,10 @@ const CustomCursor = () => {
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+
+      // Determine whether the pointer is currently over the #about section.
+      const target = e.target as HTMLElement | null;
+      setIsInAbout(!!target?.closest('#about'));
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -41,6 +47,8 @@ const CustomCursor = () => {
   }, []);
 
   if (isPointerCoarse) return null;
+  // Hide entirely unless the pointer is within the About section.
+  if (!isInAbout) return null;
 
   return (
     <>

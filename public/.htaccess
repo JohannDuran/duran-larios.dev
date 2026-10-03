@@ -34,33 +34,50 @@
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
   # Content Security Policy: define de dónde puede cargar recursos la web.
-  # Ajustado a lo que usa el portfolio:
-  #   - Google Fonts (fonts.googleapis.com / fonts.gstatic.com)
-  #   - Imágenes externas (unsplash, microlink screenshots, google, etc.)
-  #   - 'unsafe-inline' en style por Tailwind/estilos inline y framer-motion
-  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://api.microlink.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+  # img-src restringido a los dominios que realmente usamos:
+  #   - unsplash (imágenes de proyectos/testimonios)
+  #   - gstatic / googleusercontent (logos de experiencia)
+  #   - microlink (screenshots de proyectos)
+  #   - data: (favicon inline) y blob: (framer-motion)
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://images.unsplash.com https://*.gstatic.com https://*.googleusercontent.com https://api.microlink.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://api.microlink.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
 # ------------------------------------------------------------
-# 3. Bloquear acceso a archivos sensibles
+# 3. Bloquear métodos HTTP peligrosos (TRACE / TRACK)
 # ------------------------------------------------------------
-<FilesMatch "(^\.|\.(env|json|lock|log|map|md|yml|yaml|ini|sh|bak)$)">
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|DELETE|PUT|PATCH) [NC]
+  RewriteRule .* - [F,L]
+</IfModule>
+
+# ------------------------------------------------------------
+# 4. Limitar tamaño del body (10 KB) — impide payloads enormes
+# ------------------------------------------------------------
+<IfModule mod_security.c>
+  LimitRequestBody 10240
+</IfModule>
+
+# ------------------------------------------------------------
+# 5. Bloquear acceso a archivos sensibles
+# ------------------------------------------------------------
+<FilesMatch "(^\.|\.(env|json|lock|log|map|md|yml|yaml|ini|sh|bak|sql|tar|gz|zip|php\.bak)$)">
   Require all denied
 </FilesMatch>
 
-# Permitir manifest.json / otros .json públicos si los necesitas,
-# descomentando y nombrándolos explícitamente:
-# <Files "manifest.json">
-#   Require all granted
-# </Files>
+# Permitir explícitamente contact.php (excepción al bloqueo de acceso directo
+# a otros .php si los hubiera; innecesario hoy, pero futuro-proof).
+<Files "contact.php">
+  Require all granted
+</Files>
 
 # ------------------------------------------------------------
-# 4. Desactivar el listado de directorios
+# 6. Desactivar el listado de directorios
 # ------------------------------------------------------------
 Options -Indexes
 
 # ------------------------------------------------------------
-# 5. SPA fallback — redirige rutas al index.html (React Router / enlaces internos)
+# 7. SPA fallback — redirige rutas al index.html (React Router / enlaces internos)
 # ------------------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -72,14 +89,14 @@ Options -Indexes
 </IfModule>
 
 # ------------------------------------------------------------
-# 6. Compresión GZIP (rendimiento)
+# 8. Compresión GZIP (rendimiento)
 # ------------------------------------------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
 </IfModule>
 
 # ------------------------------------------------------------
-# 7. Caché de assets estáticos (rendimiento)
+# 9. Caché de assets estáticos (rendimiento)
 # ------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On

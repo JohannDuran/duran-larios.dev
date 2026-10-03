@@ -10,7 +10,7 @@
   },
   "hero": {
     "greeting": "Hi, I am",
-    "name": "Johann Durán Developer",
+    "name": "Johann Durán",
     "roles": ["Web Developer", "Frontend Enthusiast", "Backend Developer", "Full Stack Developer"],
     "viewWork": "View My Work",
     "downloadCV": "Download CV",
@@ -26,7 +26,7 @@
   },
   "projects": {
     "title": "My Projects",
-    "liveDemo": "Live Demo",
+    "liveDemo": "Go to Site",
     "github": "Source Code",
     "all": "All",
     "items": [
@@ -65,26 +65,37 @@
   "services":{
     "title": "Services",
     "description": "Comprehensive solutions to help you build your digital product from the ground up.",
+    "learnMore": "Learn more",
     "items": [
       {
         "id": 1,
-        "title":"Web Development",
-        "description":"High-performance, responsive websites built with modern frameworks like React and Next.js."
+        "title": "Software Development & Web Architecture",
+        "description": "Creation of custom web platforms, CRMs, and high-performance, conversion-oriented websites (React, Next.js, Tailwind)."
       },
       {
         "id": 2,
-        "title": "UI/UX Design",
-        "description": "Intuitive, accessible, and beautiful user interfaces designed in Figma."
+        "title": "Backend Systems & APIs",
+        "description": "Development of robust business logic, third-party service integrations, and secure databases (Node.js, NestJS, SQL)."
       },
       {
         "id": 3,
-        "title": "Backend Systems",
-        "description": "Robust APIs and database architectures using Node.js, Express, and PostgreSQL."
+        "title": "Infrastructure & Deployment",
+        "description": "Server configuration, automated production deployments, and domain management to ensure maximum uptime."
       },
       {
         "id": 4,
-        "title": "Technical Writing",
-        "description": "Clear, concise documentation and technical articles for engineering teams."
+        "title": "AI Integration & Automation",
+        "description": "Connecting your platform with Artificial Intelligence APIs (Anthropic, OpenAI) to automate data processing and enhance workflows."
+      },
+      {
+        "id": 5,
+        "title": "Payment Gateways & Fintech",
+        "description": "Secure implementation of online payments and connection with financial or banking ecosystems for real-time data synchronization."
+      },
+      {
+        "id": 6,
+        "title": "Maintenance & Optimization",
+        "description": "Security audits, load time optimization, and code refactoring to scale existing systems."
       }
     ]
   },
@@ -94,13 +105,20 @@
     "email": "Email",
     "message": "Message",
     "send": "Send Message",
-    "success": "Message sent successfully!"
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again.",
+    "rateLimit": "Too many messages. Please wait a moment before sending again.",
+    "tooLong": "Your message is too long.",
+    "invalidEmail": "Please enter a valid email address."
   },
   "footer": {
     "rights": "All rights reserved."
   },
   "experienceSection": {
     "title": "Experience & Education",
+    "kicker": "Career Path",
+    "work": "Work",
+    "education": "Education",
     "items": [
       {
         "id": 1,
@@ -140,7 +158,7 @@
         "role": "Computer Systems Engineering",
         "company": "Instituto Tecnológico de Mérida",
         "period": "Higher Education",
-        "description": "Completed studies in Computer Systems Engineering."
+        "description": "Completed degree in Computer Systems Engineering."
       }
     ]
   }

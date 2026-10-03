@@ -1,115 +1,166 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { FiBriefcase, FiAward } from 'react-icons/fi';
+import { FiBriefcase, FiAward, FiChevronDown } from 'react-icons/fi';
 
-// Background image per experience card, keyed by the item's `id`.
-// Add a new entry here to give any card its own background. Cards whose
-// id is not listed render with the default glass style (no image).
-const cardBackgrounds: Record<number, string> = {
+// Company logo per experience id. Empty string → render an icon badge instead.
+const companyLogos: Record<number, string> = {
   1: 'https://play-lh.googleusercontent.com/XgYXR5kLXNPEM0mllxDOMTmwYgzHEQnwiKiOeWwgm2RM02aJiCdRZnxrJ1zPuI2q3ddgY7lSFhKWEpwj7_dmFA=w480-h960-rw', // Macropay
   2: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa85inRQkFADvo-kZDoue0H4o5hnoS5vZJxa_sOwKqMud0COHcxTwZHcmf&s=10', // Grupo Colorines
-  3: '', //OneSmart
+  3: '', // OneSmart
   4: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsuCKD3RQBDCpypu3tcfy_t6Jp44u4TS6vItnDS3abA&s=10', // Compufax
   5: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhxobbRmlvjKpZCyUCqv5Rhs-0wyVih-T-tf_k3dU0Eg&s=10', // Tecnologico
 };
 
+interface ExperienceItem {
+  id: number;
+  type: string;
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+}
 
 const Experience = () => {
   const { t } = useTranslation();
-  
-  const experiences = t('experienceSection.items', { returnObjects: true }) as Array<{
-    id: number;
-    type: string;
-    role: string;
-    company: string;
-    period: string;
-    description: string;
-  }>;
+  // Track which card is expanded (first one open by default for a filled look).
+  const [expandedId, setExpandedId] = useState<number | null>(1);
+
+  const experiences = (t('experienceSection.items', { returnObjects: true }) as ExperienceItem[]) || [];
 
   return (
-    <section id="experience" className="py-24 bg-gray-50 dark:bg-dark-card transition-colors duration-300">
+    <section
+      id="experience"
+      className="relative py-24 bg-gray-50 dark:bg-dark-card transition-colors duration-300"
+    >
       <div className="container mx-auto px-6 md:px-12">
-        <motion.div 
+        {/* Section header — editorial, left-aligned on desktop */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="max-w-3xl mx-auto mb-16 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary-500">
+            {t('experienceSection.kicker') || 'Career Path'}
+          </span>
+          <h2 className="mt-3 text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
             {t('nav.experience') || 'Experience & Education'}
           </h2>
-          <div className="w-20 h-1.5 bg-primary-500 mx-auto rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-primary mx-auto rounded-full mt-5" />
         </motion.div>
 
-        <div className="max-w-4xl mx-auto relative px-4 md:px-0">
-          {/* Main vertical line - Moved to 20px on mobile, center on desktop */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary-500 via-primary-300 to-transparent dark:from-primary-600 dark:via-primary-800 dark:to-transparent transform md:-translate-x-1/2 rounded-full ml-4 md:ml-0"></div>
-          
-          <div className="space-y-12 shrink-0">
+        {/* Single-column timeline */}
+        <div className="max-w-3xl mx-auto">
+          <ol className="relative border-l border-gray-200 dark:border-gray-700/70 ml-3 md:ml-0">
             {experiences.map((exp, index) => {
-              const isEven = index % 2 === 0;
-              const bgImage = cardBackgrounds[exp.id];
-              
+              const isWork = exp.type === 'work';
+              const logo = companyLogos[exp.id];
+              const isOpen = expandedId === exp.id;
+
               return (
-                <motion.div 
+                <motion.li
                   key={exp.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative flex items-center w-full group ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'} flex-row`}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="relative pl-8 md:pl-12 pb-10 last:pb-0"
                 >
-                  {/* Timeline icon */}
-                  {/* It exactly sits on the line at left:20px or left:50% */}
-                  <div className="absolute left-[20px] md:left-1/2 w-10 h-10 transform -translate-x-1/2 flex items-center justify-center bg-white dark:bg-dark-surface border-[4px] border-primary-500 rounded-full z-10 text-primary-500 shadow-lg group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 ml-4 md:ml-0">
-                    {exp.type === 'work' ? <FiBriefcase size={18} /> : <FiAward size={18} />}
+                  {/* Timeline node */}
+                  <span className="absolute -left-[9px] top-1.5 flex items-center justify-center">
+                    <span className="absolute w-4 h-4 rounded-full bg-primary-500/20 animate-ping-slow" />
+                    <span className="relative w-[18px] h-[18px] rounded-full border-2 border-primary-500 bg-gray-50 dark:bg-dark-card flex items-center justify-center">
+                      <span className="w-2 h-2 rounded-full bg-gradient-primary" />
+                    </span>
+                  </span>
+
+                  {/* Period label in mono — technical, Swiss-style */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-xs font-medium uppercase tracking-wider text-primary-600 dark:text-primary-400">
+                      {exp.period}
+                    </span>
+                    <span
+                      className={`inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider ${
+                        isWork
+                          ? 'text-gray-400 dark:text-gray-500'
+                          : 'text-accent dark:text-accent-light'
+                      }`}
+                    >
+                      {isWork ? <FiBriefcase size={10} /> : <FiAward size={10} />}
+                      {isWork
+                        ? t('experienceSection.work') || 'Work'
+                        : t('experienceSection.education') || 'Education'}
+                    </span>
                   </div>
 
-                  {/* Empty space for desktop layout to push card to one side */}
-                  <div className="hidden md:block md:w-1/2"></div>
-                  
-                  {/* Content card */}
-                  {/* For mobile, it has ml-[60px] to start exactly right after the icon. For desktop, it takes nearly half minus the icon's radius  */}
-                  <div className={`w-full md:w-1/2 flex flex-col pl-[60px] ml-4 md:ml-0 md:pl-0 ${isEven ? 'md:items-end md:pr-[20px]' : 'md:items-start md:pl-[20px]'}`}>
-                    <div
-                      className="glass relative p-6 md:p-8 rounded-2xl md:rounded-[2rem] hover:border-primary-500/50 transition-all duration-300 group-hover:shadow-primary-500/20 group-hover:shadow-2xl w-full flex flex-col group/card overflow-hidden bg-cover bg-center"
-                      style={
-                        bgImage
-                          ? { backgroundImage: `url(${bgImage})` }
-                          : undefined
-                      }
+                  {/* Card */}
+                  <div
+                    className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${
+                      isOpen
+                        ? 'bg-white dark:bg-dark-surface border-primary-500/40 elevation-3'
+                        : 'bg-white/60 dark:bg-dark-surface/50 border-gray-100 dark:border-gray-800 hover:border-primary-500/30 elevation-1 hover:elevation-2'
+                    }`}
+                  >
+                    {/* Header row — click to expand */}
+                    <button
+                      type="button"
+                      onClick={() => setExpandedId(isOpen ? null : exp.id)}
+                      aria-expanded={isOpen}
+                      className="w-full flex items-center gap-4 p-5 text-left"
                     >
-                      {/* Overlay to keep text readable over the background image (cards with a bgImage only) */}
-                      {bgImage && (
-                        <div className="absolute inset-0 bg-white/80 dark:bg-dark-surface/85 backdrop-blur-sm pointer-events-none" />
-                      )}
-                      <div className={`relative flex flex-col ${isEven ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}>
-                        <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-primary-600 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/40 rounded-full border border-primary-100 dark:border-primary-800/50 shadow-sm">
-                          {exp.period}
-                        </span>
-                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      {/* Company logo or icon badge */}
+                      <div className="shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center ring-1 ring-gray-200/70 dark:ring-gray-700/70">
+                        {logo ? (
+                          <img src={logo} alt="" className="w-full h-full object-cover" loading="lazy" />
+                        ) : (
+                          <span className="text-primary-500">
+                            {isWork ? <FiBriefcase size={22} /> : <FiAward size={22} />}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug truncate">
                           {exp.role}
                         </h3>
-                        <h4 className="text-lg font-medium text-primary-600 dark:text-primary-400 mb-4">
+                        <p className="text-sm font-medium text-primary-600 dark:text-primary-400 truncate">
                           {exp.company}
-                        </h4>
+                        </p>
                       </div>
-                      
-                      {/* Inner scrollable area for descriptions */}
-                      <div className="relative mt-2 p-5 rounded-xl bg-gray-50/50 dark:bg-dark-surface/40 border border-gray-100/50 dark:border-gray-800/50 group-hover/card:border-primary-500/20 transition-colors shadow-inner w-full">
-                        <div className="max-h-[160px] overflow-y-auto pr-3 text-left">
+
+                      <FiChevronDown
+                        className={`shrink-0 text-gray-400 transition-transform duration-300 ${
+                          isOpen ? 'rotate-180 text-primary-500' : ''
+                        }`}
+                        size={20}
+                      />
+                    </button>
+
+                    {/* Expandable description */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isOpen ? 'auto' : 0,
+                        opacity: isOpen ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 pt-0">
+                        <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
                           <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed whitespace-pre-line">
                             {exp.description}
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
-                </motion.div>
+                </motion.li>
               );
             })}
-          </div>
+          </ol>
         </div>
       </div>
     </section>

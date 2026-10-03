@@ -22,10 +22,10 @@ const Footer = () => {
           </div>
 
           <div className="flex gap-4">
-            <a href="mailto:johann.duran@outlook.com" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
+            <a href="mailto:contact@duran-larios.dev" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
               <FiMail size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/johann-duran-bba115128/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
+            <a href="https://www.linkedin.com/in/johann-alberto-dur%C3%A1n-larios-145988137/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-all hover:-translate-y-1">
               <FiLinkedin size={20} />
             </a>
           </div>

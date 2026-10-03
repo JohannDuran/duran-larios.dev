@@ -116,7 +116,10 @@ $safeEmail = preg_replace('/[\r\n]+/', '', $email);
 $safeName  = preg_replace('/[\r\n]+/', '', $name);
 
 // --- Construir el correo (texto plano) ------------------------------------
+// Destinatario principal: buzón del propio dominio.
 $to      = 'contact@duran-larios.dev';
+// Copia (Cc): buzón personal. Ambos reciben el mensaje.
+$cc      = 'johann.duran@outlook.com';
 $subject = "Nuevo mensaje de contacto - $safeName";
 $body =
     "Nombre:  $safeName\n" .
@@ -128,8 +131,10 @@ $body =
 // --- 7. Cabeceras del correo ----------------------------------------------
 // From = buzón propio del dominio (mejor entregabilidad, evita spoofing).
 // Reply-To = correo del visitante (al responder, va directo a él).
+// Cc = copia al buzón personal.
 $headers  = "From: Portfolio Contacto <contact@duran-larios.dev>\r\n";
 $headers .= "Reply-To: $safeName <$safeEmail>\r\n";
+$headers .= "Cc: $cc\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 

@@ -52,11 +52,10 @@
 </IfModule>
 
 # ------------------------------------------------------------
-# 4. Limitar tamaño del body (10 KB) — impide payloads enormes
+# 4. Limitar tamaño del body (100 KB) — impide payloads enormes
 # ------------------------------------------------------------
-<IfModule mod_security.c>
-  LimitRequestBody 10240
-</IfModule>
+# LimitRequestBody es una directiva del core de Apache (no de mod_security).
+LimitRequestBody 102400
 
 # ------------------------------------------------------------
 # 5. Bloquear acceso a archivos sensibles

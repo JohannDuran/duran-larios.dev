@@ -59,10 +59,19 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Send as application/x-www-form-urlencoded instead of JSON.
+      // Shared-hosting WAFs (mod_security on Hostgator) often reject JSON
+      // POST bodies with a 409 Conflict; form-encoded bodies pass cleanly.
+      const params = new URLSearchParams();
+      params.append('name', name);
+      params.append('email', email);
+      params.append('message', message);
+      params.append('website', formData.website);
+
       const res = await fetch('/contact.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message, website: formData.website }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString(),
       });
 
       const data = await res.json().catch(() => ({ ok: false }));

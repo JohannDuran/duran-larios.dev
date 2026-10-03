@@ -70,20 +70,6 @@ LimitRequestBody 102400
   Require all granted
 </Files>
 
-# Desactivar mod_security SOLO para contact.php.
-# Hostgator intercepta POSTs a .php con un "anti-bot challenge" (cookie humans_*)
-# que devuelve 409 a las peticiones fetch/AJAX. Esto lo evita para el endpoint.
-<IfModule mod_security.c>
-  <Files "contact.php">
-    SecRuleEngine Off
-  </Files>
-</IfModule>
-<IfModule mod_security2.c>
-  <Files "contact.php">
-    SecRuleEngine Off
-  </Files>
-</IfModule>
-
 # ------------------------------------------------------------
 # 6. Desactivar el listado de directorios
 # ------------------------------------------------------------

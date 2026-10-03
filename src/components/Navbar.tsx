@@ -69,7 +69,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-3' : 'bg-transparent py-5'}`}>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/30 dark:bg-dark-bg/30 backdrop-blur-md border-b border-white/10 dark:border-white/5 py-3' : 'bg-transparent py-5'}`}>
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <a href="#" className="font-bold text-2xl text-gradient tracking-tight">
@@ -145,7 +145,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0, transition: { delay: 0.1, duration: 0.2 } }}
-            className="md:hidden glass fixed top-0 left-0 w-full flex flex-col items-center justify-center gap-8 text-xl font-semibold z-40"
+            className="md:hidden fixed top-0 left-0 w-full flex flex-col items-center justify-center gap-8 text-xl font-semibold z-40 bg-white dark:bg-dark-card"
           >
             {navLinks.map((link, i) => {
               const isActive = activeSection === link.id;

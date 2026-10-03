@@ -7,8 +7,12 @@ import {
 import { TbBrandCSharp, TbSql } from 'react-icons/tb';
 import { FaAws } from 'react-icons/fa';
 import { FiLayers } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 const TechStack = () => {
+
+  const { t } = useTranslation();
+
   const techs = [
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
@@ -57,11 +61,11 @@ const TechStack = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Tech Stack
+            {t('skills.title')}
           </h2>
           <div className="w-20 h-1.5 bg-primary-500 mx-auto rounded-full"></div>
           <p className="mt-6 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A comprehensive list of the tools and technologies I use to build robust and scalable applications.
+            {t('skills.description')}
           </p>
         </motion.div>
 

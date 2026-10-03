@@ -16,8 +16,8 @@ const Footer = () => {
             <a href="#" className="font-bold text-2xl text-gradient tracking-tight">
               Duran<span className="text-gray-900 dark:text-white">.dev</span>
             </a>
-            <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-sm">
-              Building digital products, brands, and experience.
+            <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-md">
+              {t('footer.description')}
             </p>
           </div>
 

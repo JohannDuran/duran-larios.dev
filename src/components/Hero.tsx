@@ -56,7 +56,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-12 md:h-16 text-2xl md:text-4xl font-bold text-gray-600 dark:text-gray-300 mb-8"
           >
-            <span className="mr-2">I am a</span>
+            <span className="mr-2">{t('hero.titelRol')}</span>
             <span className="text-gradient">
               <TypeAnimation
                 key={i18n.language}

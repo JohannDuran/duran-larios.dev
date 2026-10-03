@@ -11,6 +11,7 @@
   "hero": {
     "greeting": "Hola, soy",
     "name": "Johann Durán",
+    "titelRol": "Soy un",
     "roles": ["Desarrollador Web", "Entusiasta Frontend","Desarrollador Backend", "Desarrollador Full Stack"],
     "viewWork": "Ver mi Trabajo",
     "downloadCV": "Descargar CV",
@@ -23,6 +24,10 @@
     "title": "Sobre Mí",
     "description": "Soy un desarrollador apasionado creando aplicaciones web hermosas, interactivas y responsivas. Con un ojo fuerte para el diseño y enfoque en la experiencia del usuario, construyo soluciones que no solo funcionan a la perfección sino que cautivan a los usuarios.",
     "skills": "Mi Experiencia"
+  },
+  "skills":{
+    "title": "Stack Tecnológico",
+    "description": "Una lista completa de las herramientas y tecnologías que utilizo para construir aplicaciones robustas y escalables."
   },
   "projects": {
     "title": "Mis Proyectos",
@@ -115,6 +120,7 @@
     "captchaPlaceholder": "Tu respuesta"
   },
   "footer": {
+    "description": "Desarrollando productos digitales, marcas y experiencias.",
     "rights": "Todos los derechos reservados."
   },
   "experienceSection": {

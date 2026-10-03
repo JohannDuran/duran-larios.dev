@@ -11,6 +11,7 @@
   "hero": {
     "greeting": "Hi, I am",
     "name": "Johann Durán",
+    "titelRol": "I am a",
     "roles": ["Web Developer", "Frontend Enthusiast", "Backend Developer", "Full Stack Developer"],
     "viewWork": "View My Work",
     "downloadCV": "Download CV",
@@ -23,6 +24,10 @@
     "title": "About Me",
     "description": "I'm a passionate developer creating beautiful, interactive, and responsive web applications. With a strong eye for design and a focus on user experience, I build solutions that not only work seamlessly but also captivate users.",
     "skills": "My Expertise"
+  },
+  "skills":{
+    "title": "Tech Stack",
+    "description": "A comprehensive list of the tools and technologies I use to build robust and scalable applications."
   },
   "projects": {
     "title": "My Projects",
@@ -115,6 +120,7 @@
     "captchaPlaceholder": "Your answer"
   },
   "footer": {
+    "description":"Building digital products, brands, and experience.",
     "rights": "All rights reserved."
   },
   "experienceSection": {

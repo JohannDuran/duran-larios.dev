@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { FiLayout, FiCode, FiServer, FiArrowUpRight } from 'react-icons/fi';
+import { FiLayout, FiCode, FiServer } from 'react-icons/fi';
 import { TfiCreditCard } from 'react-icons/tfi';
 import { TbAutomaticGearbox, TbShieldCheck } from 'react-icons/tb';
 import type { IconType } from 'react-icons';

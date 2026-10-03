@@ -14,7 +14,7 @@ const Hero = () => {
   const typeSequence = roles.flatMap(role => [role, 2000]);
 
   // Determine the correct CV file based on current language
-  const cvUrl = i18n.language?.startsWith('es') ? '/cv/ESP-RESUME.pdf' : '/cv/ENG-RESUME.pdf';
+  const cvUrl = i18n.language?.startsWith('es') ? 'https://rivgoldcorporacion.com/duran-larios.dev_files/ESP_RESUME.pdf' : 'https://rivgoldcorporacion.com/duran-larios.dev_files/ENG_RESUME.pdf';
 
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.preventDefault();

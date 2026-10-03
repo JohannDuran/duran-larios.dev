@@ -85,9 +85,8 @@ const Contact = () => {
     try {
       // Submit through Web3Forms (external service). This keeps the contact
       // form fully client-side and avoids any server/PHP dependency.
-      // IMPORTANT: the destination inbox is configured in the Web3Forms
-      // dashboard (tied to the access key), NOT here. `ccemail` is a Pro
-      // feature; on the free plan it is ignored.
+      // The destination inbox is configured in the Web3Forms dashboard
+      // (tied to the access key), NOT here.
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -101,7 +100,6 @@ const Contact = () => {
           name,
           email,
           message,
-          ccemail: 'johann.duran@outlook.com', // Pro feature; ignored on free plan
           botcheck: formData.website, // honeypot, Web3Forms ignores filled ones
         }),
       });
@@ -113,6 +111,8 @@ const Contact = () => {
         setFormData({ name: '', email: '', message: '', website: '' });
         toast.success(t('contact.success') || 'Message sent successfully!');
       } else {
+        // Surface the exact reason Web3Forms rejected the submission.
+        console.error('[contact] Web3Forms error:', res.status, data);
         toast.error(t('contact.error') || 'Something went wrong. Please try again.');
       }
     } catch {

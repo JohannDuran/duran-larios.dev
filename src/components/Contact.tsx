@@ -85,7 +85,9 @@ const Contact = () => {
     try {
       // Submit through Web3Forms (external service). This keeps the contact
       // form fully client-side and avoids any server/PHP dependency.
-      // The destination inbox is tied to the access key; `cc` adds a copy.
+      // IMPORTANT: the destination inbox is configured in the Web3Forms
+      // dashboard (tied to the access key), NOT here. `ccemail` is a Pro
+      // feature; on the free plan it is ignored.
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -99,7 +101,7 @@ const Contact = () => {
           name,
           email,
           message,
-          cc: 'johann.duran@outlook.com',
+          ccemail: 'johann.duran@outlook.com', // Pro feature; ignored on free plan
           botcheck: formData.website, // honeypot, Web3Forms ignores filled ones
         }),
       });

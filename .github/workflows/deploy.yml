@@ -52,3 +52,8 @@ jobs:
           # Carpeta destino en el servidor — raíz del usuario FTP
           # que ya apunta a /home2/rivgoldc/duran-larios.dev/
           server-dir: ${{secrets.FTP_SERVER_DIR}}
+
+          # Fuerza una re-subida COMPLETA ignorando el estado de sincronización.
+          # Soluciona archivos que quedaron fuera de sync (ej. los PDF de /cv/).
+          # Puedes quitar esta línea después del primer deploy exitoso.
+          dangerous-clean-slate: true
